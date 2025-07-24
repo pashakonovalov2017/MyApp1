@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add registration</title>
+</head>
+<body>
+<h1>Add registration into the journal</h1>
+<form action="/register" method="post">
+    <label>Name:
+        <input type="text" name="name" required />
+    </label><br><br>
+
+    <label>Date:
+        <input type="date" name="date" required />
+    </label><br><br>
+
+    <label>Time:
+        <input type="time" name="time" required />
+    </label><br><br>
+
+    <label>Type:
+        <input type="text" name="type" required />
+    </label><br><br>
+
+    <input type="submit" value="Add" />
+</form>
+<button onclick="window.location.href='/timetable'">Check all</button>
+</html>

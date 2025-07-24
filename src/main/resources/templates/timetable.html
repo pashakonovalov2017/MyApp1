@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Registration journal</title>
+</head>
+<body>
+<h1>All registrations</h1>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Date and time</th>
+    <th>Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="appointment : ${appointments}">
+    <td th:text="${appointment.name}">Name</td>
+    <td th:text="${#temporals.format(appointment.dateTime, 'yyyy-MM-dd HH:mm')}">Date and time</td>
+    <td th:text="${appointment.type}">Type</td>
+  </tr>
+  </tbody>
+</table>
+
+<br>
+<button onclick="window.location.href='/form'">Add new</button>
+</body>
+</html>
