@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Appointment {
-    public String name;
-    public LocalDateTime dateTime;
-    public String type;
+    private String name;
+    private LocalDateTime dateTime;
+    private String type;
 
     public Appointment(String name, LocalDateTime appointment, String type){
         this.name = name;

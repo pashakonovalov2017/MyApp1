@@ -5,17 +5,13 @@
 </head>
 <body>
 <h1>Add registration into the journal</h1>
-<form action="/register" method="post">
+<form action="/addAppointment" method="post">
     <label>Name:
         <input type="text" name="name" required />
     </label><br><br>
 
-    <label>Date:
-        <input type="date" name="date" required />
-    </label><br><br>
-
-    <label>Time:
-        <input type="time" name="time" required />
+    <label>Date and Time:
+        <input type="datetime-local" name="dateTime" required />
     </label><br><br>
 
     <label>Type:

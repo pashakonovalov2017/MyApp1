@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,16 +22,22 @@ public class AppointmentController {
 
     ///
 
-    @PostMapping("/register")
-    public ResponseEntity<Appointment> register(@RequestBody Appointment appointment) {
+    @PostMapping(value = "/addAppointment" , consumes = "application/json")
+    public ResponseEntity<Appointment> addAppointmentJSON(@RequestBody Appointment appointment) {
         appointmentService.add(new Appointment(appointment.getName(),appointment.getDateTime(),appointment.getType()));
+        return ResponseEntity.ok(appointment);
+    }
+
+    @PostMapping(value = "/addAppointment" , consumes = "application/x-www-form-urlencoded")
+    public ResponseEntity<Appointment> addAppointmentForm(Appointment appointment) {
+        appointmentService.add(appointment);
         return ResponseEntity.ok(appointment);
     }
 
     ///
 
     @GetMapping("/appointments")
-    public ResponseEntity<List<Appointment>> getAppointmentsAsJSON(){
+    public ResponseEntity<List<Appointment>> getAllAppointmets(){
         return ResponseEntity.ok(appointmentService.getAll());
     }
 
