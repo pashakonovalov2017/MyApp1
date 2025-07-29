@@ -22,24 +22,32 @@ public class AppointmentController {
 
     ///
 
-    @PostMapping(value = "/addAppointment" , consumes = "application/json")
-    public ResponseEntity<Appointment> addAppointmentJSON(@RequestBody Appointment appointment) {
+    @PostMapping(value = "/add_appointment" , consumes = "application/json")
+    public void addAppointmentJSON(@RequestBody Appointment appointment) {
         appointmentService.add(new Appointment(appointment.getName(),appointment.getDateTime(),appointment.getType()));
-        return ResponseEntity.ok(appointment);
     }
 
-    @PostMapping(value = "/addAppointment" , consumes = "application/x-www-form-urlencoded")
-    public ResponseEntity<Appointment> addAppointmentForm(Appointment appointment) {
+    /*
+    @PostMapping(value = "/add_appointment" , consumes = "application/x-www-form-urlencoded")
+    public void addAppointmentForm(Appointment appointment) {
+        System.out.println(appointment.getName()+appointment.getDateTime()+appointment.getType());
         appointmentService.add(appointment);
-        return ResponseEntity.ok(appointment);
     }
+    */
 
     ///
 
-    @GetMapping("/appointments")
+    @GetMapping("/get_all")
     public ResponseEntity<List<Appointment>> getAllAppointmets(){
         return ResponseEntity.ok(appointmentService.getAll());
     }
+
+    /*
+    @GetMapping("/find_by_id/{id}")
+    public ResponseEntity<Appointment> findAppointmentById(Long id){
+        return ResponseEntity.ok(appointmentService.findById(id));
+    }
+    */
 
     ///
 

@@ -1,12 +1,23 @@
 package com.first.myapp;
 
+
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Entity
+@Table(name = "appointments")
 public class Appointment {
     private String name;
     private LocalDateTime dateTime;
     private String type;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    public Appointment(){}
 
     public Appointment(String name, LocalDateTime appointment, String type){
         this.name = name;
