@@ -2,6 +2,7 @@ package com.first.myapp;
 
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 @Table(name = "appointments")
 public class Appointment {
     private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dateTime;
     private String type;
 
@@ -25,6 +27,9 @@ public class Appointment {
         this.type = type;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
     public void setName(String name) {
         this.name = name;
     }
@@ -35,6 +40,9 @@ public class Appointment {
         this.type = type;
     }
 
+    public Long getId() {
+        return this.id;
+    }
     public String getName() {
         return this.name;
     }

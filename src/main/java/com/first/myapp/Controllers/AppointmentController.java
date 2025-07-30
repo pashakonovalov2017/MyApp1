@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -23,17 +24,24 @@ public class AppointmentController {
     ///
 
     @PostMapping(value = "/add_appointment" , consumes = "application/json")
-    public void addAppointmentJSON(@RequestBody Appointment appointment) {
+    public ResponseEntity<Appointment> addAppointmentJSON(@RequestBody Appointment appointment) {
         appointmentService.add(new Appointment(appointment.getName(),appointment.getDateTime(),appointment.getType()));
+        return ResponseEntity.ok(appointment);
     }
 
-    /*
-    @PostMapping(value = "/add_appointment" , consumes = "application/x-www-form-urlencoded")
-    public void addAppointmentForm(Appointment appointment) {
-        System.out.println(appointment.getName()+appointment.getDateTime()+appointment.getType());
-        appointmentService.add(appointment);
+    @PostMapping("/change_appointment/{id}")
+    public ResponseEntity<Appointment> changeAppointment(@RequestBody Appointment appointment, @PathVariable Long id) {
+        appointmentService.update(appointment,id);
+        return findAppointmentById(id);
     }
-    */
+
+
+    @PostMapping(value = "/add_appointment" , consumes = "application/x-www-form-urlencoded")
+    public ResponseEntity<Appointment> addAppointmentForm(Appointment appointment) {
+        appointmentService.add(appointment);
+        return ResponseEntity.ok(appointment);
+    }
+
 
     ///
 
@@ -42,12 +50,28 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getAll());
     }
 
-    /*
     @GetMapping("/find_by_id/{id}")
-    public ResponseEntity<Appointment> findAppointmentById(Long id){
-        return ResponseEntity.ok(appointmentService.findById(id));
+    public ResponseEntity<Appointment> findAppointmentById(@PathVariable Long id){
+        Optional<Appointment> optAppointment = appointmentService.findById(id);
+        if(optAppointment.isPresent()) {
+            return ResponseEntity.ok(optAppointment.get());
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
-    */
+
+    @DeleteMapping("/delete_by_id/{id}")
+    public ResponseEntity<Void> deleteAppointmentById(@PathVariable Long id){
+        appointmentService.deleteById(id);
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/delete_all")
+    public ResponseEntity<Void> deleteAll(){
+        appointmentService.deleteAll();
+        return ResponseEntity.notFound().build();
+    }
 
     ///
 
