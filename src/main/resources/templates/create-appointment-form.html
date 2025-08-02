@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Add registration into the journal</h1>
-<form action="/add_appointment" method="post">
+<form action="/appointment/create" method="post">
     <label>Name:
         <input type="text" name="name" required />
     </label><br><br>
@@ -20,5 +20,5 @@
 
     <input type="submit" value="Add" />
 </form>
-<button onclick="window.location.href='/timetable'">Check all</button>
+<button onclick="window.location.href='/view/show-timetable'">Check all</button>
 </html>

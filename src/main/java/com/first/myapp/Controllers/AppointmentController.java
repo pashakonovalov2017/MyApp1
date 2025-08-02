@@ -14,6 +14,7 @@ import java.util.Optional;
 
 
 @Controller
+@RequestMapping("/appointment")
 public class AppointmentController {
     private final AppointmentService appointmentService;
 
@@ -23,34 +24,32 @@ public class AppointmentController {
 
     ///
 
-    @PostMapping(value = "/add_appointment" , consumes = "application/json")
+    @PostMapping(value = "/create" , consumes = "application/json")
     public ResponseEntity<Appointment> addAppointmentJSON(@RequestBody Appointment appointment) {
         appointmentService.add(new Appointment(appointment.getName(),appointment.getDateTime(),appointment.getType()));
         return ResponseEntity.ok(appointment);
     }
 
-    @PostMapping("/change_appointment/{id}")
-    public ResponseEntity<Appointment> changeAppointment(@RequestBody Appointment appointment, @PathVariable Long id) {
-        appointmentService.update(appointment,id);
-        return findAppointmentById(id);
-    }
-
-
-    @PostMapping(value = "/add_appointment" , consumes = "application/x-www-form-urlencoded")
+    @PostMapping(value = "/create" , consumes = "application/x-www-form-urlencoded")
     public ResponseEntity<Appointment> addAppointmentForm(Appointment appointment) {
         appointmentService.add(appointment);
         return ResponseEntity.ok(appointment);
     }
 
+    @PostMapping("/update/{id}")
+    public ResponseEntity<Appointment> changeAppointment(@RequestBody Appointment appointment, @PathVariable Long id) {
+        appointmentService.update(appointment,id);
+        return findAppointmentById(id);
+    }
 
     ///
 
-    @GetMapping("/get_all")
+    @GetMapping("/get-all")
     public ResponseEntity<List<Appointment>> getAllAppointmets(){
         return ResponseEntity.ok(appointmentService.getAll());
     }
 
-    @GetMapping("/find_by_id/{id}")
+    @GetMapping("/find-by-id/{id}")
     public ResponseEntity<Appointment> findAppointmentById(@PathVariable Long id){
         Optional<Appointment> optAppointment = appointmentService.findById(id);
         if(optAppointment.isPresent()) {
@@ -61,28 +60,17 @@ public class AppointmentController {
         }
     }
 
-    @DeleteMapping("/delete_by_id/{id}")
+    @DeleteMapping("/delete-by-id/{id}")
     public ResponseEntity<Void> deleteAppointmentById(@PathVariable Long id){
         appointmentService.deleteById(id);
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/delete_all")
+    /*     Не сбрасывает ID в базе
+    @DeleteMapping("/delete-all")
     public ResponseEntity<Void> deleteAll(){
         appointmentService.deleteAll();
         return ResponseEntity.notFound().build();
     }
-
-    ///
-
-    @GetMapping("/form")
-    public String showForm(){
-        return "form";
-    }
-
-    @GetMapping("/timetable")
-    public String showTimetable(Model model){
-        model.addAttribute("appointments",appointmentService.getAll());
-        return "timetable";
-    }
+    */
 }
