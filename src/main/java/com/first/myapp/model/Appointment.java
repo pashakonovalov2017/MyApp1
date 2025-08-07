@@ -1,11 +1,10 @@
-package com.first.myapp;
+package com.first.myapp.model;
 
 
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "appointments")
@@ -13,18 +12,23 @@ public class Appointment {
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dateTime;
-    private String type;
+    private String content;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name="appointment_type")
+    private AppointmentType appointmentType;
+
     public Appointment(){}
 
-    public Appointment(String name, LocalDateTime appointment, String type){
+    public Appointment(String name, LocalDateTime appointment, String content, AppointmentType appointmentType){
         this.name = name;
         this.dateTime = appointment;
-        this.type = type;
+        this.content = content;
+        this.appointmentType = appointmentType;
     }
 
     public void setId(Long id) {
@@ -36,8 +40,11 @@ public class Appointment {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
-    public void setType(String type) {
-        this.type = type;
+    public void setContent(String content) {
+        this.content = content;
+    }
+    public void setAppointmentType(AppointmentType appointmentType) {
+        this.appointmentType = appointmentType;
     }
 
     public Long getId() {
@@ -49,8 +56,11 @@ public class Appointment {
     public LocalDateTime getDateTime() {
         return this.dateTime;
     }
-    public String getType() {
-        return this.type;
+    public String getContent() {
+        return this.content;
+    }
+    public AppointmentType getAppointmentType() {
+        return this.appointmentType;
     }
 
 

@@ -1,5 +1,0 @@
-BEGIN;
-
-ALTER TABLE appointments ADD COLUMN email VARCHAR(255);
-
-COMMIT;

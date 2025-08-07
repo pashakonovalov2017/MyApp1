@@ -1,14 +1,11 @@
 package com.first.myapp.Controllers;
 
-import com.first.myapp.Appointment;
+import com.first.myapp.model.Appointment;
 import com.first.myapp.Service.AppointmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,11 +23,11 @@ public class AppointmentController {
 
     @PostMapping(value = "/create" , consumes = "application/json")
     public ResponseEntity<Appointment> addAppointmentJSON(@RequestBody Appointment appointment) {
-        appointmentService.add(new Appointment(appointment.getName(),appointment.getDateTime(),appointment.getType()));
+        appointmentService.add(new Appointment(appointment.getName(),appointment.getDateTime(),appointment.getContent(),appointment.getAppointmentType()));
         return ResponseEntity.ok(appointment);
     }
 
-    @PostMapping(value = "/create" , consumes = "application/x-www-form-urlencoded")
+    @PostMapping(value = "/create" , consumes = "application/x-www-form-urlencoded")  /// fix needed
     public ResponseEntity<Appointment> addAppointmentForm(Appointment appointment) {
         appointmentService.add(appointment);
         return ResponseEntity.ok(appointment);

@@ -1,13 +1,10 @@
 package com.first.myapp.Service;
 
-import com.first.myapp.Appointment;
+import com.first.myapp.model.Appointment;
 import com.first.myapp.Repository.AppointmentRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +27,8 @@ public class AppointmentService {
             Appointment existing = opt.get();
             existing.setName(appointment.getName());
             existing.setDateTime(appointment.getDateTime());
-            existing.setType(appointment.getType());
+            existing.setContent(appointment.getContent());
+            existing.setAppointmentType(appointment.getAppointmentType());
             this.appointmentRepository.save(existing);
         } else {
             throw new EntityNotFoundException("Appointment not found with id: " + id);
