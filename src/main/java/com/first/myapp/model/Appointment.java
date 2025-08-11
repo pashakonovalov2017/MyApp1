@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "appointments")
 public class Appointment {
     private String name;
+    @Column(name = "datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dateTime;
     private String content;
